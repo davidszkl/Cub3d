@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dszklarz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/30 09:17:40 by dszklarz          #+#    #+#             */
-/*   Updated: 2021/11/30 09:17:41 by dszklarz         ###   ########.fr       */
+/*   Created: 2021/12/01 10:54:18 by dszklarz          #+#    #+#             */
+/*   Updated: 2021/12/01 10:54:20 by dszklarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
+#include "get_next_line.h"
 
-int	main(int argc, char **argv)
+//read the file and assign structures
+
+int	ft_read_file(t_main *main, char	*file)
 {
-	t_main	main;
+	int		fd;
+	size_t	count;
 
-	(void)argc;
-	if (ft_read_file(&main, argv[1]))
+	count = 0;
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
 		return (1);
+	main->temp = get_next_line(fd);
+	while (main->temp && count++ >= 0)
+		main->temp = get_next_line(fd);
 	return (0);
 }

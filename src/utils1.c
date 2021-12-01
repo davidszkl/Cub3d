@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
+#include "free.h"
 
 size_t	ft_strlen(char *str)
 {
@@ -21,20 +22,9 @@ size_t	ft_strlen(char *str)
 	return (len);
 }
 
-char	**ft_freetab(char **tab)
+char	*ft_strdup(char *s1)
 {
-	int	n;
-
-	n = 0;
-	while (tab[n])
-		free(tab[n++]);
-	free(tab);
-	return (NULL);
-}
-
-char	*ft_strdup(const char *s1)
-{
-	const size_t	l = ft_strlen(s1);
+	size_t	l = ft_strlen(s1);
 	char			*s;
 
 	s = malloc(l + 1);
@@ -60,11 +50,21 @@ char	**ft_tabcpy(char **tab)
 	n = 0;
 	while (tab[n])
 	{
-		new[n] = (char *)malloc(sizeof(char) * (ft_strlen(tab[n]) + 1));
+		new[n] = ft_strdup(tab[n]);
 		if (!new[n])
-			return (ft_freetab(new));
-		new[n] = ft_strdup(tab[n++]);
+		{
+			ft_freetab(new, 0);
+			return (NULL);
+		}
+		n++;
 	}
 	new[n] = NULL;
 	return (new);
+}
+
+int	ft_is_news(char c)
+{
+	if (c == 'N' || c == 'E' || c == 'W' || c == 'S')
+		return (1);
+	return (0);
 }

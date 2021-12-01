@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dszklarz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/30 09:17:40 by dszklarz          #+#    #+#             */
-/*   Updated: 2021/11/30 09:17:41 by dszklarz         ###   ########.fr       */
+/*   Created: 2021/12/01 11:13:35 by dszklarz          #+#    #+#             */
+/*   Updated: 2021/12/01 11:13:36 by dszklarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "cub3d.h"
+#ifndef STRUCT_H
+# define STRUCT_H
 
-int	main(int argc, char **argv)
-{
-	t_main	main;
+typedef struct s_img {
+	void	*mlx;
+}	t_img;
 
-	(void)argc;
-	if (ft_read_file(&main, argv[1]))
-		return (1);
-	return (0);
-}
+#endif

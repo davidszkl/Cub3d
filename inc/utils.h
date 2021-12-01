@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dszklarz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/30 09:17:40 by dszklarz          #+#    #+#             */
-/*   Updated: 2021/11/30 09:17:41 by dszklarz         ###   ########.fr       */
+/*   Created: 2021/12/01 10:56:08 by dszklarz          #+#    #+#             */
+/*   Updated: 2021/12/01 10:56:09 by dszklarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "cub3d.h"
+#ifndef UTILS_H
+# define UTILS_H
 
-int	main(int argc, char **argv)
-{
-	t_main	main;
+/*includes*/
 
-	(void)argc;
-	if (ft_read_file(&main, argv[1]))
-		return (1);
-	return (0);
-}
+#include <stddef.h>
+
+/*utils*/
+
+size_t	ft_strlen(char *str);
+char	**ft_tabcpy(char **tab);
+char	*ft_strdup(char *s1);
+int		ft_is_news(char c);
+
+#endif

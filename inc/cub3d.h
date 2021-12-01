@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dszklarz <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dszklarz <dszklarz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/30 09:16:04 by dszklarz          #+#    #+#             */
-/*   Updated: 2021/11/30 09:17:24 by dszklarz         ###   ########.fr       */
+/*   Created: 2021/12/01 11:07:54 by dszklarz          #+#    #+#             */
+/*   Updated: 2021/12/01 11:49:21 by dszklarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -21,10 +21,24 @@
 
 /*structures*/
 
-typedef struct s_struct {
-	int n;
-}	t_struct;
+typedef struct s_main {
+	void	*mlx;
+	void	*window;
+	char	**file;
+	char	**params;
+	char	**map;
+	char	*temp;
+	
+}	t_main;
 
 /*functions*/
 
+int	ft_read_file(t_main *main, char	*file);
+int	ft_check_params(char **tab);
+int	ft_check_map(char **tab);
+
+
+/*ERASE*/
+
+void	ft_showtab(char **tab);
 #endif

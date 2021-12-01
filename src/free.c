@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dszklarz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/30 09:17:40 by dszklarz          #+#    #+#             */
-/*   Updated: 2021/11/30 09:17:41 by dszklarz         ###   ########.fr       */
+/*   Created: 2021/12/01 10:19:32 by dszklarz          #+#    #+#             */
+/*   Updated: 2021/12/01 10:19:34 by dszklarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
 
-int	main(int argc, char **argv)
+int	ft_myfree(void	*ptr, int rval)
 {
-	t_main	main;
+	free(ptr);
+	return (rval);
+}
 
-	(void)argc;
-	if (ft_read_file(&main, argv[1]))
-		return (1);
-	return (0);
+int	ft_freetab(char	**tab, int rval)
+{
+	int	n;
+
+	n = 0;
+	while (tab[n])
+		free(tab[n++]);
+	free(tab);
+	return (rval);
 }
