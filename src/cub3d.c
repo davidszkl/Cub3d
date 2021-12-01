@@ -16,7 +16,7 @@ int	main(int argc, char **argv)
 	t_main	main;
 
 	(void)argc;
-	if (ft_read_file(&main, argv[1]))
+	if (ft_file_struct(&main, argv[1]))
 		return (1);
 	return (0);
 }

@@ -9,8 +9,10 @@
 /*   Updated: 2021/11/30 15:32:03 by dszklarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "cub3d.h"
+#include "utils.h"
+#include "fcntl.h"
 #include "free.h"
+#include "get_next_line.h"
 
 size_t	ft_strlen(char *str)
 {
@@ -24,9 +26,10 @@ size_t	ft_strlen(char *str)
 
 char	*ft_strdup(char *s1)
 {
-	size_t	l = ft_strlen(s1);
-	char			*s;
+	size_t	l;
+	char	*s;
 
+	l = ft_strlen(s1);
 	s = malloc(l + 1);
 	if (!s)
 		return (0);
@@ -67,4 +70,25 @@ int	ft_is_news(char c)
 	if (c == 'N' || c == 'E' || c == 'W' || c == 'S')
 		return (1);
 	return (0);
+}
+
+int	ft_get_gnl_len(char *file)
+{
+	char	*tmp;
+	int		count;
+	int		fd;
+
+	count = 0;
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		return (-1);
+	tmp = get_next_line(fd);
+	while (tmp && count++ >= 0)
+	{
+		free(tmp);
+		tmp = get_next_line(fd);
+	}
+	free(tmp);
+	close(fd);
+	return (count);
 }

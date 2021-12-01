@@ -63,7 +63,7 @@ static int	ft_algo_check(char **tab, char **cpy)
 			if (((tab[n][j] != '.' && tab[n][j] != '0')
 				|| cpy[n][j] == 'X') && j++ >= 0)
 				continue ;
-			if ((!n || !tab[n + 1] || !j || j == ft_strlen(tab[n])) && ++rval)				
+			if ((!n || !tab[n + 1] || !j || j == ft_strlen(tab[n])) && ++rval)
 				cpy[n][j] = 'X';
 			else if ((cpy[n - 1][j] == 'X' || cpy[n][j - 1] == 'X'
 				|| cpy[n + 1][j] == 'X' || cpy[n][j + 1] == 'X') && ++rval)
@@ -81,7 +81,7 @@ static int	ft_check_close(char **tab)
 	int		change;
 	int		n;
 	int		j;
-	
+
 	cpy = ft_tabcpy(tab);
 	if (!cpy)
 		return (1);
@@ -102,13 +102,13 @@ static int	ft_check_close(char **tab)
 	}
 	free(cpy);
 	return (0);
-} 
+}
 
 int	ft_check_map(char **tab)
 {
 	if (ft_map_check(tab))
 		return (1);
 	if (ft_check_close(tab))
-		return (1);
+		return (2);
 	return (0);
 }

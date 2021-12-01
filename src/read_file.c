@@ -10,21 +10,136 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
+#include "utils.h"
+#include "free.h"
 #include "get_next_line.h"
 
-//read the file and assign structures
+//get map from main->file
 
-int	ft_read_file(t_main *main, char	*file)
+static char	**ft_get_map(char **tab)
 {
-	int		fd;
 	size_t	count;
+	size_t	n;
+	char	**new;
 
 	count = 0;
-	fd = open(file, O_RDONLY);
+	n = 0;
+	while (tab[n] && count++ < 6)
+		while (tab[n] && ft_is_empty(tab[n]))
+			n++;
+	while (tab[n] && ft_is_empty(tab[n]))
+		n++;
+	if (!tab[n])
+		return (NULL);
+	count = n;
+	while (tab[n])
+		n++;
+	new = (char **)malloc(sizeof(char *) * (n - count + 1));
+	if (!new)
+		return (NULL);
+	n = 0;
+	while (tab[count])
+		new[n++] = tab[count++];
+	new[n] = NULL;
+	return (new);
+}
+
+//get_params from main->file into params
+
+static char	**ft_get_params(char **file)
+{
+	size_t	count;
+	size_t	newcount;
+	char	**new;
+
+	count = 0;
+	newcount = 0;
+	new = malloc(sizeof(char *) * 7);
+	if (!new)
+		return (NULL);
+	while (file[count] && newcount < 6)
+	{
+		while (ft_is_empty(file[count]))
+			count++;
+		new[newcount++] = file[count++];
+	}
+	new[newcount] = NULL;
+	return (new);
+}
+
+// read file to main->file
+
+static char	**ft_read_file(t_main *main, char *file_name)
+{
+	int		count;
+	char	**new;
+	int		fd;
+
+	count = ft_get_gnl_len(file_name);
+	if (count == -1)
+		return (NULL);
+	fd = open(file_name, O_RDONLY);
 	if (fd < 0)
+		return (NULL);
+	new = (char **)malloc(sizeof(char *) * (count + 1));
+	if (!main->file)
+		return (NULL);
+	count = 0;
+	new[count] = get_next_line(fd);
+	while (new[count] && count++ >= 0)
+		new[count] = get_next_line(fd);
+	new[count + 1] = NULL;
+	return (new);
+}
+
+// second part for norm
+
+static int	ft_file_struct1(t_main *main)
+{
+	int	rval;
+
+	rval = ft_check_map(main->map);
+	if (rval)
+	{
+		if (rval == 1)
+			perror(MAP1_ERR);
+		else if (rval == 2)
+			perror(MAP2_ERR);
+		free(main->file);
+		free(main->params);
+		free(main->map);
 		return (1);
-	main->temp = get_next_line(fd);
-	while (main->temp && count++ >= 0)
-		main->temp = get_next_line(fd);
+	}
+	free(main->file);
+	return (0);
+}
+
+// read file to main->file, get param, check param, get map, check map
+int	ft_file_struct(t_main *main, char *file)
+{
+	main->file = ft_read_file(main, file);
+	if (!main->file)
+		return (1);
+	main->params = ft_get_params(main->file);
+	if (!main->params)
+		return (ft_myfree(main->file, 1));
+	main->tmp_int = ft_check_params(main->params);
+	if (main->tmp_int)
+	{
+		free(main->file);
+		if (main->tmp_int == 1)
+			perror(ID_ERR);
+		else
+			perror(PATH_ERR);
+		return (ft_myfree(main->params, 1));
+	}
+	main->map = ft_get_map(main->file);
+	if (!main->map)
+	{
+		free(main->file);
+		return (ft_myfree(main->params, 1));
+	}
+	if (ft_file_struct1(main))
+		return (1);
 	return (0);
 }

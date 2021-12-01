@@ -9,8 +9,8 @@
 /*   Updated: 2021/12/01 11:13:36 by dszklarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef STRUCT_H
-# define STRUCT_H
+#ifndef IMG_H
+# define IMG_H
 
 typedef struct s_img {
 	void	*mlx;
