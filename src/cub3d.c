@@ -18,5 +18,6 @@ int	main(int argc, char **argv)
 	(void)argc;
 	if (ft_file_struct(&main, argv[1]))
 		return (1);
+	write(1, "ok\n", 3);
 	return (0);
 }

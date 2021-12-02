@@ -19,12 +19,12 @@
 static char	**ft_get_map(char **tab)
 {
 	size_t	count;
-	size_t	n;
+	int		n;
 	char	**new;
 
 	count = 0;
-	n = 0;
-	while (tab[n] && count++ < 6)
+	n = -1;
+	while (tab[++n] && count++ < 6)
 		while (tab[n] && ft_is_empty(tab[n]))
 			n++;
 	while (tab[n] && ft_is_empty(tab[n]))
@@ -85,12 +85,10 @@ static char	**ft_read_file(char *file_name)
 	if (!new)
 		return (NULL);
 	count = 0;
-	write(1, "ok\n", 3);
 	new[count] = get_next_line(fd);
 	while (new[count] && count++ >= 0)
 		new[count] = get_next_line(fd);
 	new[count + 1] = NULL;
-	write(1, "ok\n", 3);
 	return (new);
 }
 
@@ -104,9 +102,9 @@ static int	ft_file_struct1(t_main *main)
 	if (rval)
 	{
 		if (rval == 1)
-			perror(MAP1_ERR);
+			ft_putstr_fd(MAP1_ERR, 2);
 		else if (rval == 2)
-			perror(MAP2_ERR);
+			ft_putstr_fd(MAP2_ERR, 2);
 		free(main->file);
 		free(main->params);
 		free(main->map);
@@ -117,6 +115,7 @@ static int	ft_file_struct1(t_main *main)
 }
 
 // read file to main->file, get param, check param, get map, check map
+
 int	ft_file_struct(t_main *main, char *file)
 {
 	main->file = ft_read_file(file);
@@ -125,14 +124,12 @@ int	ft_file_struct(t_main *main, char *file)
 	main->params = ft_get_params(main->file);
 	if (!main->params)
 		return (ft_myfree(main->file, 1));
-	main->tmp_int = ft_check_params(main->params);
-	if (main->tmp_int)
+	main->a = ft_check_params(main, main->params);
+	if (main->a)
 	{
-		free(main->file);
-		if (main->tmp_int == 1)
-			ft_putstr_fd(ID_ERR, 2);
-		else
+		if (main->a == 2)
 			perror(file);
+		free(main->file);
 		return (ft_myfree(main->params, 1));
 	}
 	main->map = ft_get_map(main->file);

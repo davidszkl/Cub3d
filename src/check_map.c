@@ -28,9 +28,9 @@ static int	ft_map_check(char **tab)
 	while (tab[n])
 	{
 		j = 0;
-		while (tab[n][j])
+		while (tab[n][j] && j < ft_strlen(tab[n]) - 1)
 		{
-			if (tab[n][j] == '\n' && j < ft_strlen(tab[n]))
+			if (tab[n][j] == '\n')
 				return (1);
 			if (!ft_is_news(tab[n][j]) && tab[n][j] != '1' && tab[n][j] != '0')
 				return (1);
