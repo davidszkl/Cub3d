@@ -17,7 +17,7 @@ CC		= gcc
 
 RM		= rm -f
 
-CFLAGS	= -Wall -Wextra -Werror 
+CFLAGS	= -Wall -Wextra -Werror -g
 
 $(OBJDIR)/%.o:	$(SRCDIR)/%.c
 			$(CC) $(CFLAGS) -I$(INCDIR) -I$(GNLDIR) -c $^ -o $@
