@@ -6,15 +6,21 @@
 /*   By: dszklarz <dszklarz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 11:07:54 by dszklarz          #+#    #+#             */
-/*   Updated: 2021/12/01 11:49:21 by dszklarz         ###   ########.fr       */
+/*   Updated: 2021/12/02 15:27:32 by mlefevre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
 # define CUB3D_H
+
 # define PATH_ERR "Error\nunvalid path: could not be opened\n"
 # define ID_ERR "Error\nidentifier error: missing or wrong id\n"
 # define MAP1_ERR "Error\nmap error: wrong characters in map\n"
 # define MAP2_ERR "Error\nmap error: space not enclosed\n"
+
+# define NORTH 0
+# define SOUTH 1
+# define EAST 2
+# define WEST 3
 
 /*includes*/
 
@@ -53,4 +59,5 @@ int		ft_check_map(char **tab);
 /*ERASE*/
 
 void	ft_showtab(char **tab);
+
 #endif
