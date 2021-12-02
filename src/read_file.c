@@ -69,7 +69,7 @@ static char	**ft_get_params(char **file)
 
 // read file to main->file
 
-static char	**ft_read_file(t_main *main, char *file_name)
+static char	**ft_read_file(char *file_name)
 {
 	int		count;
 	char	**new;
@@ -82,13 +82,15 @@ static char	**ft_read_file(t_main *main, char *file_name)
 	if (fd < 0)
 		return (NULL);
 	new = (char **)malloc(sizeof(char *) * (count + 1));
-	if (!main->file)
+	if (!new)
 		return (NULL);
 	count = 0;
+	write(1, "ok\n", 3);
 	new[count] = get_next_line(fd);
 	while (new[count] && count++ >= 0)
 		new[count] = get_next_line(fd);
 	new[count + 1] = NULL;
+	write(1, "ok\n", 3);
 	return (new);
 }
 
@@ -117,7 +119,7 @@ static int	ft_file_struct1(t_main *main)
 // read file to main->file, get param, check param, get map, check map
 int	ft_file_struct(t_main *main, char *file)
 {
-	main->file = ft_read_file(main, file);
+	main->file = ft_read_file(file);
 	if (!main->file)
 		return (1);
 	main->params = ft_get_params(main->file);
@@ -128,9 +130,9 @@ int	ft_file_struct(t_main *main, char *file)
 	{
 		free(main->file);
 		if (main->tmp_int == 1)
-			perror(ID_ERR);
+			ft_putstr_fd(ID_ERR, 2);
 		else
-			perror(PATH_ERR);
+			perror(file);
 		return (ft_myfree(main->params, 1));
 	}
 	main->map = ft_get_map(main->file);

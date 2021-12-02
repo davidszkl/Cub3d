@@ -16,6 +16,7 @@
 
 # include <stddef.h>
 # include <stdlib.h>
+# include <unistd.h>
 
 /*utils*/
 
@@ -24,6 +25,7 @@ char	**ft_tabcpy(char **tab);
 char	*ft_getword_simple(char *str, int n);
 char	*ft_strdup(char *s1);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_putstr_fd(char *s, int fd);
 int		ft_get_gnl_len(char *file);
 int		ft_is_empty(char *line);
 int		ft_is_news(char c);

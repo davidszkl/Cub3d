@@ -15,12 +15,10 @@
 int	ft_check_params(char **tab)
 {
 	size_t	n;
-	size_t	j;
 	char	*tmp;
 	int		fd;
 
 	n = 0;
-	j = 0;
 	while (tab[n])
 	{
 		if (ft_strncmp(tab[n], "NO ", 3) && ft_strncmp(tab[n], "SO ", 3)
@@ -30,10 +28,13 @@ int	ft_check_params(char **tab)
 		tmp = ft_getword_simple(tab[n], 3);
 		if (!tmp)
 			return (2);
-		fd = open(tmp, O_RDONLY);
-		if (fd < 0)
-			return (2);
-		close(fd);
+		if (n < 4)
+		{
+			fd = open(tmp, O_RDONLY);
+			if (fd < 0)
+				return (2);
+			close(fd);
+		}
 		free(tmp);
 		n++;
 	}
