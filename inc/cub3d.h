@@ -12,6 +12,8 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 # define ID_ERR "Error\nid error: missing / wrong / duplicate id\n"
+# define RGB_ERR "Error\nrgb error: wrong rgb values (range 0-255)\n"
+# define MAP_ERR "Error\nmap error: missing map\n"
 # define MAP1_ERR "Error\nmap error: wrong characters in map\n"
 # define MAP2_ERR "Error\nmap error: space not enclosed\n"
 
@@ -26,12 +28,11 @@
 
 typedef struct s_img {
 	void	*img;
-	char	*path;		//malloc
+	char	*path;		//malloc x4
 	int		line;
 }	t_img;
 
 typedef struct s_fill {
-	char	*rgb;		//malloc
 	int		line;
 	int		rgb1[3];
 }	t_fill;
@@ -45,20 +46,25 @@ typedef struct s_main {
 	t_fill	ceilling;
 	void	*mlx;
 	void	*win;
-	char	**file;		//malloc
-	char	**params;	//malloc
-	char	**map;		//malloc
+	char	**file;		//malloc tab
+	char	**params;
+	char	**map;
 	char	*temp;
 	int		a;
 }	t_main;
 
 /*functions*/
 
+char	**ft_read_nospace_file(char **new, int count, int fd);
 int		ft_file_struct(t_main *main, char *file);
 int		ft_check_params(t_main *main, char **tab);
-int		ft_check_map(char **tab);
+int		ft_free_paths(t_main *main, int rval);
+int		ft_free_all(t_main *main, int rval);
+int		ft_check_map(t_main *main);
 
 /*ERASE*/
 
+void	ft_showstate(t_main *main);
 void	ft_showtab(char **tab);
+
 #endif

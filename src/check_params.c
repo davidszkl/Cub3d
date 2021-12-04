@@ -13,17 +13,24 @@
 #include "cub3d.h"
 #include "free.h"
 
-
-static int	ft_get_2nd_word_index(char *line)
+static char	*ft_get_rgb(char *str, int n)
 {
-	int	n;
+	char	*new;
+	int		t;
 
+	while (str[n] && (str[n] == ' ' || str[n] == 9))
+		n++;
+	t = n;
+	while (str[n] && ft_isprint(str[n]))
+		n++;
+	new = malloc(sizeof(char) * (n - t + 1));
+	if (!new)
+		return (NULL);
 	n = 0;
-	while (line[n] && ft_isspace(line[n]))
-		n++;
-	while (line[n] && ft_isprint(line[n]) && line[n] != ' ')
-		n++;
-	return (n);
+	while (str[t] && ft_isprint(str[t]))
+		new[n++] = str[t++];
+	new[n] = 0;
+	return (new);
 }
 
 static int	ft_check_rgb(t_main *main, char *line, int index)
@@ -33,30 +40,25 @@ static int	ft_check_rgb(t_main *main, char *line, int index)
 
 	count = 0;
 	n = ft_get_2nd_word_index(line);
-	main->temp = ft_getword_simple(line, n);
+	main->temp = ft_get_rgb(line, n);
 	if (!main->temp)
 		return (1);
 	n = 0;
 	if (main->floor.line == index)
 	{
-		while (main->temp[n])
-		{
-			n = ft_atoi_mod(&line[n], &main->floor.rgb1[count++]);
-			printf("n = %d\nrgb[%zu] = %d\n", n, count, main->floor.rgb1[count - 1]);
-			if (n < 0)
-				return (ft_myfree(main->temp, 1));
-		}
+		while (n >= 0 && main->temp[n] && count < 3)
+			n = ft_atoi_mod(&main->temp[n], &main->floor.rgb1[count++]);
+		if (n < 0)
+			return (ft_myfree(main->temp, 1));
 	}
 	else if (main->ceilling.line == index)
 	{
-		while (main->temp[n])
-		{
-			n = ft_atoi_mod(&line[n], &main->ceilling.rgb1[count++]);
-			if (n < 0)
-				return (ft_myfree(main->temp, 1));
-		}
+		while (n >= 0 && main->temp[n] && count < 3)
+			n = ft_atoi_mod(&main->temp[n], &main->ceilling.rgb1[count++]);
+		if (n < 0)
+			return (ft_myfree(main->temp, 1));
 	}
-	return (0);
+	return (ft_myfree(main->temp, 0));
 }
 
 static int	ft_check_path(t_main *main, char *line, int index)
@@ -65,17 +67,16 @@ static int	ft_check_path(t_main *main, char *line, int index)
 	char	*tmp;
 	int		fd;
 
-	n = 0;
-	while (line[n] && ft_isspace(line[n]))
-		n++;
-	while (line[n] && ft_isprint(line[n]) && line[n] != ' ')
-		n++;
+	n = ft_get_2nd_word_index(line);
 	tmp = ft_getword_simple(line, n);
 	if (!tmp)
 		return (1);
 	fd = open(tmp, O_RDONLY);
 	if (fd < 0)
+	{
+		perror(tmp);
 		return (ft_myfree(tmp, 1));
+	}
 	close(fd);
 	if (main->north.line == index)
 		main->north.path = tmp;
@@ -131,21 +132,15 @@ int	ft_check_params(t_main *main, char **tab)
 		if (!tmp)
 			return (4);
 		if (ft_check_id(main, tmp, check, n))
-			return (ft_putstr_fd(ID_ERR, 2));
-		if ((!ft_strncmp(tmp, "NO ", 3) || !ft_strncmp(tmp, "SO ", 3)
-			||!ft_strncmp(tmp, "EA ", 3) || !ft_strncmp(tmp, "WE ", 3))
+			return (ft_myfree(tmp, 1));
+		if ((!ft_strncmp(tmp, "NO", 3) || !ft_strncmp(tmp, "SO", 3)
+				|| !ft_strncmp(tmp, "EA", 3) || !ft_strncmp(tmp, "WE", 3))
 			&& ft_check_path(main, tab[n], n))
 			return (ft_myfree(tmp, 2));
 		else if ((!ft_strncmp(tmp, "F", 2) || !ft_strncmp(tmp, "C", 2))
-				&& ft_check_rgb(main, tab[n], n))
+			&& ft_check_rgb(main, tab[n], n))
 			return (ft_myfree(tmp, 3));
 		free(tmp);
 	}
-	printf("n = %s\n", main->north.path);
-	printf("s = %s\n", main->south.path);
-	printf("e = %s\n", main->east.path);
-	printf("w = %s\n", main->west.path);
-	printf("floor = %d,%d,%d\n", main->floor.rgb1[0], main->floor.rgb1[1], main->floor.rgb1[2]);
-	printf("ceilling  = %d,%d,%d\n", main->ceilling.rgb1[0], main->ceilling.rgb[1], main->ceilling.rgb[2]);
 	return (0);
 }

@@ -16,30 +16,28 @@
 
 //get map from main->file
 
-static char	**ft_get_map(char **tab)
+static char	**ft_get_map(char **file)
 {
-	size_t	count;
-	int		n;
 	char	**new;
+	int		count;
+	int		n;
 
 	count = 0;
-	n = -1;
-	while (tab[++n] && count++ < 6)
-		while (tab[n] && ft_is_empty(tab[n]))
-			n++;
-	while (tab[n] && ft_is_empty(tab[n]))
-		n++;
-	if (!tab[n])
-		return (NULL);
-	count = n;
-	while (tab[n])
-		n++;
-	new = (char **)malloc(sizeof(char *) * (n - count + 1));
+	n = 0;
+	new = (char **)malloc(sizeof(char *) * 5);
 	if (!new)
 		return (NULL);
+	while (file[n] && count++ < 6)
+		n++;
+	if (!file[n])
+	{
+		ft_freetab(new, 1);
+		return (NULL);
+	}
+	count = n;
 	n = 0;
-	while (tab[count])
-		new[n++] = tab[count++];
+	while (file[count])
+		new[n++] = ft_strdup(file[count++]);
 	new[n] = NULL;
 	return (new);
 }
@@ -48,22 +46,31 @@ static char	**ft_get_map(char **tab)
 
 static char	**ft_get_params(char **file)
 {
-	size_t	count;
-	size_t	newcount;
 	char	**new;
+	size_t	n;
+	size_t	j;
 
-	count = 0;
-	newcount = 0;
-	new = malloc(sizeof(char *) * 7);
+	n = 0;
+	j = 0;
+	new = (char **)malloc(sizeof(char *) * 7);
 	if (!new)
 		return (NULL);
-	while (file[count] && newcount < 6)
+	while (file[n] && j < 6)
 	{
-		while (ft_is_empty(file[count]))
-			count++;
-		new[newcount++] = file[count++];
+		new[j] = ft_strdup(file[n++]);
+		if (!new[j++])
+		{
+			ft_freetab(new, 1);
+			return (NULL);
+		}
 	}
-	new[newcount] = NULL;
+	if (j < 6)
+	{
+		ft_freetab(new, 1);
+		ft_putstr_fd(ID_ERR, 2);
+		return (NULL);
+	}
+	new[j] = NULL;
 	return (new);
 }
 
@@ -71,8 +78,8 @@ static char	**ft_get_params(char **file)
 
 static char	**ft_read_file(char *file_name)
 {
-	int		count;
 	char	**new;
+	int		count;
 	int		fd;
 
 	count = ft_get_gnl_len(file_name);
@@ -83,12 +90,19 @@ static char	**ft_read_file(char *file_name)
 		return (NULL);
 	new = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!new)
+	{
+		close(fd);
 		return (NULL);
-	count = 0;
-	new[count] = get_next_line(fd);
-	while (new[count] && count++ >= 0)
-		new[count] = get_next_line(fd);
-	new[count + 1] = NULL;
+	}
+	new = ft_read_nospace_file(new, count, fd);
+	if (!new)
+		return (NULL);
+	if (ft_tablen(new) < 6)
+	{
+		ft_freetab(new);
+		return (NULL);
+	}
+	close(fd);
 	return (new);
 }
 
@@ -98,19 +112,26 @@ static int	ft_file_struct1(t_main *main)
 {
 	int	rval;
 
-	rval = ft_check_map(main->map);
+	main->map = ft_get_map(main->file);
+	if (!main->map)
+	{
+		ft_putstr_fd(MAP_ERR, 2);
+		ft_freetab(main->params, 1);
+		ft_free_paths(main, 1);
+		return (ft_freetab(main->file, 1));
+	}
+	rval = ft_check_map(main);
 	if (rval)
 	{
 		if (rval == 1)
 			ft_putstr_fd(MAP1_ERR, 2);
 		else if (rval == 2)
 			ft_putstr_fd(MAP2_ERR, 2);
-		free(main->file);
-		free(main->params);
-		free(main->map);
-		return (1);
+		ft_freetab(main->params, 1);
+		ft_freetab(main->map, 0);
+		ft_free_paths(main, 1);
+		return (ft_freetab(main->file, 1));
 	}
-	free(main->file);
 	return (0);
 }
 
@@ -123,20 +144,17 @@ int	ft_file_struct(t_main *main, char *file)
 		return (1);
 	main->params = ft_get_params(main->file);
 	if (!main->params)
-		return (ft_myfree(main->file, 1));
+		return (ft_freetab(main->file, 1));
 	main->a = ft_check_params(main, main->params);
 	if (main->a)
 	{
-		if (main->a == 2)
-			perror(file);
-		free(main->file);
-		return (ft_myfree(main->params, 1));
-	}
-	main->map = ft_get_map(main->file);
-	if (!main->map)
-	{
-		free(main->file);
-		return (ft_myfree(main->params, 1));
+		if (main->a == 1)
+			ft_putstr_fd(ID_ERR, 2);
+		if (main->a == 3)
+			ft_putstr_fd(RGB_ERR, 2);
+		ft_free_paths(main, 1);
+		ft_freetab(main->params, 1);
+		return (ft_freetab(main->file, 1));
 	}
 	if (ft_file_struct1(main))
 		return (1);

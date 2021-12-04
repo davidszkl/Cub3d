@@ -32,7 +32,8 @@ static int	ft_map_check(char **tab)
 		{
 			if (tab[n][j] == '\n')
 				return (1);
-			if (!ft_is_news(tab[n][j]) && tab[n][j] != '1' && tab[n][j] != '0')
+			if (!ft_is_news(tab[n][j]) && tab[n][j] != '1' && tab[n][j] != '0'
+				&& tab[n][j] != ' ')
 				return (1);
 			if (ft_is_news(tab[n][j] && count++ > 0))
 				return (1);
@@ -60,7 +61,7 @@ static int	ft_algo_check(char **tab, char **cpy)
 		j = 0;
 		while (tab[n][j])
 		{
-			if (((tab[n][j] != '.' && tab[n][j] != '0')
+			if (((tab[n][j] != ' ' && tab[n][j] != '0')
 				|| cpy[n][j] == 'X') && j++ >= 0)
 				continue ;
 			if ((!n || !tab[n + 1] || !j || j == ft_strlen(tab[n])) && ++rval)
@@ -95,20 +96,54 @@ static int	ft_check_close(char **tab)
 		while (tab[n][++j])
 		{
 			if ((tab[n][j] == '0' || ft_is_news(tab[n][j])) && cpy[n][j] == 'X')
-				return (ft_myfree(cpy, 1));
+				return (ft_freetab(cpy, 1));
 			if (tab[n][j] == ' ' && cpy[n][j] != 'X')
 				tab[n][j] = '0';
 		}
 	}
-	free(cpy);
-	return (0);
+	return (ft_freetab(cpy, 0));
 }
 
-int	ft_check_map(char **tab)
+static char	**ft_fill_map(char **map)
 {
-	if (ft_map_check(tab))
+	size_t	max_len;
+	char	**new;
+	int		n;
+
+	max_len = 0;
+	n = -1;
+	while (map[++n])
+		if (ft_strlen(map[n]) > max_len)
+			max_len = ft_strlen(map[n]);
+	new = (char **)malloc(sizeof(char *) * (n + 1));
+	if (!new)
+		return (NULL);
+	n = -1;
+	while (map[++n])
+	{
+		new[n] = ft_strdup_fill(map[n], max_len, ' ');
+		if (!new[n])
+		{
+			ft_freetab(new, 1);
+			return (NULL);
+		}
+	}
+	new[n] = NULL;
+	return (new);
+}
+
+int	ft_check_map(t_main *main)
+{
+	char	**new;
+
+	new = ft_fill_map(main->map);
+	if (!new)
+		return (ft_freetab(main->map, -1));
+	ft_freetab(main->map, 0);
+	main->map = new;
+	if (ft_map_check(main->map))
 		return (1);
-	if (ft_check_close(tab))
+	if (ft_check_close(main->map))
 		return (2);
 	return (0);
 }
