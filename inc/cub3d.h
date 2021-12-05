@@ -12,6 +12,10 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
+/*settings*/
+
+# define SIZE_X 1080
+# define SIZE_Y	1920
 /*errors*/
 
 # define ID_ERR "Error\nid error: missing / wrong / duplicate id\n"
@@ -34,14 +38,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include "img.h"
 
 /*structures*/
-
-typedef struct s_img {
-	void	*img;
-	char	*path;		//malloc x4
-	int		line;
-}	t_img;
 
 typedef struct s_fill {
 	int		line;
@@ -64,14 +63,24 @@ typedef struct s_main {
 	int		a;
 }	t_main;
 
-/*functions*/
+/*parser*/
 
 char	**ft_read_nospace_file(char *tmp, char **new, int count, int fd);
 int		ft_file_struct(t_main *main, char *file);
 int		ft_check_params(t_main *main, char **tab);
+int		ft_check_map(t_main *main);
+
+/*mlx*/
+
+int		ft_mlx_init(t_main *main);
+int		ft_keyhook(int keycode, t_main *main);
+int		ft_exithook(t_main *main);
+
+/*free*/
+
+void	ft_exit(t_main *main);
 int		ft_free_paths(t_main *main, int rval);
 int		ft_free_all(t_main *main, int rval);
-int		ft_check_map(t_main *main);
 
 /*ERASE*/
 

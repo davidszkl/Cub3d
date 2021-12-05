@@ -11,7 +11,7 @@ OBJS	= $(subst $(SRCDIR), $(OBJDIR), $(SRCS:.c=.o))
 
 INCDIR	= inc
 
-GNLDIR	= src/gnl
+MLXDIR	= mlx
 
 CC		= gcc
 
@@ -19,8 +19,10 @@ RM		= rm -f
 
 CFLAGS	= -Wall -Wextra -Werror -g
 
+API		= -lmlx -framework OpenGL -framework AppKit
+
 $(OBJDIR)/%.o:	$(SRCDIR)/%.c
-			$(CC) $(CFLAGS) -I$(INCDIR) -I$(GNLDIR) -c $^ -o $@
+				$(CC) $(CFLAGS) -I$(INCDIR) -I$(MLXDIR) -c $^ -o $@
                 
 all:		$(NAME)
 
@@ -29,7 +31,8 @@ $(OBJDIR):
 			mkdir -p $(OBJDIR)/gnl
 
 $(NAME):	$(OBJDIR) $(OBJS)
-				$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+			make -C mlx
+			$(CC) $(CFLAGS) $(OBJS) $(API) -o $(NAME)
 
 install:
 			mkdir $(OBJDIR) $(SRCDIR) $(INCDIR)
@@ -40,7 +43,7 @@ clean:
 			$(RM) -r $(OBJDIR) $(NAME).dSYM .DS_Store
 
 fclean:		clean
-				$(RM) $(NAME)
+			$(RM) $(NAME)
 
 re:			fclean all
 

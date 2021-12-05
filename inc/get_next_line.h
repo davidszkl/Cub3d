@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.h                                           :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dszklarz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/01 11:13:35 by dszklarz          #+#    #+#             */
-/*   Updated: 2021/12/01 11:13:36 by dszklarz         ###   ########.fr       */
+/*   Created: 2021/09/22 14:38:46 by dszklarz          #+#    #+#             */
+/*   Updated: 2021/09/22 14:38:49 by dszklarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef IMG_H
-# define IMG_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# define BUFFER_SIZE 1024
 
-typedef struct s_img {
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		ll;
-	int		end;
-	int		w;
-	int		h;
-	char	*path;		//malloc x4
-	int		line;
-}	t_img;
+# include <stdlib.h>
+# include <unistd.h>
+# include <stddef.h>
+
+char	*get_next_line(int fd);
+char	*ft_read_to_str(int fd, char *left_str);
+char	*ft_strchr(char *s, int c);
+char	*ft_strjoin(char *left_str, char *buff);
+size_t	ft_strlen(char *s);
+char	*ft_get_line(char *left_str);
+char	*ft_new_str(char *left_str);
 
 #endif
