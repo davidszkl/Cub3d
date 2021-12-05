@@ -58,11 +58,8 @@ static char	**ft_get_params(char **file)
 	while (file[n] && j < 6)
 	{
 		new[j] = ft_strdup(file[n++]);
-		if (!new[j++])
-		{
-			ft_freetab(new, 1);
+		if (!new[j++] && ft_freetab(new, 1))
 			return (NULL);
-		}
 	}
 	if (j < 6)
 	{
@@ -76,7 +73,7 @@ static char	**ft_get_params(char **file)
 
 // read file to main->file
 
-static char	**ft_read_file(char *file_name)
+static char	**ft_read_file(t_main *main, char *file_name)
 {
 	char	**new;
 	int		count;
@@ -94,14 +91,11 @@ static char	**ft_read_file(char *file_name)
 		close(fd);
 		return (NULL);
 	}
-	new = ft_read_nospace_file(new, count, fd);
+	new = ft_read_nospace_file(main->temp, new, count, fd);
 	if (!new)
 		return (NULL);
-	if (ft_tablen(new) < 6)
-	{
-		ft_freetab(new);
+	if (ft_tablen(new) < 6 && ft_freetab(new, 1))
 		return (NULL);
-	}
 	close(fd);
 	return (new);
 }
@@ -139,9 +133,9 @@ static int	ft_file_struct1(t_main *main)
 
 int	ft_file_struct(t_main *main, char *file)
 {
-	main->file = ft_read_file(file);
+	main->file = ft_read_file(main, file);
 	if (!main->file)
-		return (1);
+		return (ft_putstr_fd(ID_ERR, 2));
 	main->params = ft_get_params(main->file);
 	if (!main->params)
 		return (ft_freetab(main->file, 1));

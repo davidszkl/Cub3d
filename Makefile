@@ -37,7 +37,7 @@ install:
 			touch $(SRCDIR)/$(NAME).c
 			cp ~/Desktop/Proj_init/inc.h $(INCIDR)/${NAME}.h
 clean:
-			$(RM) -r $(OBJDIR)
+			$(RM) -r $(OBJDIR) $(NAME).dSYM .DS_Store
 
 fclean:		clean
 				$(RM) $(NAME)

@@ -9,7 +9,9 @@
 /*   Updated: 2021/12/04 14:19:46 by dszklarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "get_next_line.h"
 #include "utils.h"
+#include "free.h"
 
 int	ft_putstr_fd(char *s, int fd)
 {
@@ -64,10 +66,8 @@ char	*ft_strdup_fill(char *str, size_t l, char fill)
 }
 
 // should be in read_file as static but no space there
-char	**ft_read_nospace_file(char **new, int count, int fd)
+char	**ft_read_nospace_file(char *tmp, char **new, int count, int fd)
 {
-	char	*tmp;
-
 	count = 0;
 	tmp = get_next_line(fd);
 	while (tmp)
@@ -75,10 +75,8 @@ char	**ft_read_nospace_file(char **new, int count, int fd)
 		if (!ft_is_empty(tmp))
 		{
 			new[count] = ft_strdup(tmp);
-			if (!new[count++])
+			if (!new[count++] && ft_freetab(new, 1) && ft_myfree(tmp, 1))
 			{
-				free(tmp);
-				ft_freetab(new, 1);
 				close(fd);
 				return (NULL);
 			}
@@ -88,7 +86,7 @@ char	**ft_read_nospace_file(char **new, int count, int fd)
 	}
 	new[count] = NULL;
 	free(tmp);
-	if (count < 6)
+	if (count < 6 && ft_freetab(new, 1))
 	{
 		close(fd);
 		return (NULL);

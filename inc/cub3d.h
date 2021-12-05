@@ -55,7 +55,7 @@ typedef struct s_main {
 
 /*functions*/
 
-char	**ft_read_nospace_file(char **new, int count, int fd);
+char	**ft_read_nospace_file(char *tmp, char **new, int count, int fd);
 int		ft_file_struct(t_main *main, char *file);
 int		ft_check_params(t_main *main, char **tab);
 int		ft_free_paths(t_main *main, int rval);

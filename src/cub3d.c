@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 	ft_init_struct(&main, argc);
 	if (ft_file_struct(&main, argv[1]))
 		return (1);
-	//ft_showstate(&main);
+	ft_showstate(&main);
 	ft_free_all(&main, 0);
 	return (0);
 }
