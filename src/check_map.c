@@ -19,27 +19,27 @@
 
 static int	ft_map_check(char **tab)
 {
-	size_t	n;
-	size_t	j;
 	size_t	count;
+	size_t	j;
+	int		n;
 
-	n = 0;
+	n = -1;
 	count = 0;
-	while (tab[n])
+	while (tab[++n])
 	{
 		j = 0;
 		while (tab[n][j] && j < ft_strlen(tab[n]) - 1)
 		{
-			if (tab[n][j] == '\n')
+			if (tab[n][j] == '\n' && ft_putstr_fd(MAP1_ERR, 2))
 				return (1);
 			if (!ft_is_news(tab[n][j]) && tab[n][j] != '1' && tab[n][j] != '0'
-				&& tab[n][j] != ' ')
+				&& tab[n][j] != ' ' && ft_putstr_fd(MAP1_ERR, 2))
 				return (1);
-			if (ft_is_news(tab[n][j] && count++ > 0))
+			if (ft_is_news(tab[n][j]) && count++ > 0
+				&& ft_putstr_fd(MAP2_ERR, 2))
 				return (1);
 			j++;
 		}
-		n++;
 	}
 	return (0);
 }
@@ -144,6 +144,6 @@ int	ft_check_map(t_main *main)
 	if (ft_map_check(main->map))
 		return (1);
 	if (ft_check_close(main->map))
-		return (2);
+		return (ft_putstr_fd(MAP3_ERR, 2));
 	return (0);
 }

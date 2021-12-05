@@ -1,7 +1,14 @@
-  
-  NO ./rsrc/ananas.xpm
-
-
-       SO   ./rsrc/ananas.xpm
-EA  ./rsrc/ananas.xpm
+NO ./rsrc/ananas.xpm
+SO ./rsrc/ananas.xpm
+EA ./rsrc/ananas.xpm
 WE ./rsrc/ananas.xpm
+F 255,255,255
+C 255,255,255
+
+1111111111
+1000000001
+1000000001
+100N000 01
+1000000001
+1000000001
+1111111111

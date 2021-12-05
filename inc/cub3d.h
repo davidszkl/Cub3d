@@ -18,7 +18,8 @@
 # define RGB_ERR "Error\nrgb error: wrong rgb values (range 0-255)\n"
 # define MAP_ERR "Error\nmap error: missing map\n"
 # define MAP1_ERR "Error\nmap error: wrong characters in map\n"
-# define MAP2_ERR "Error\nmap error: space not enclosed\n"
+# define MAP3_ERR "Error\nmap error: space not enclosed\n"
+# define MAP2_ERR "Error\nmap error: duplicate character token\n"
 
 /*sides convention*/
 

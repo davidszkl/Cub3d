@@ -24,20 +24,21 @@ static char	**ft_get_map(char **file)
 
 	count = 0;
 	n = 0;
-	new = (char **)malloc(sizeof(char *) * 5);
+	new = (char **)malloc(sizeof(char *) * (ft_tablen(file) - 6 + 1));
 	if (!new)
 		return (NULL);
 	while (file[n] && count++ < 6)
 		n++;
-	if (!file[n])
-	{
-		ft_freetab(new, 1);
+	if (!file[n] && ft_freetab(new, 1))
 		return (NULL);
-	}
 	count = n;
 	n = 0;
 	while (file[count])
-		new[n++] = ft_strdup(file[count++]);
+	{
+		new[n] = ft_strdup(file[count++]);
+		if (!new[n++] && ft_freetab(new, 1))
+			return (NULL);
+	}
 	new[n] = NULL;
 	return (new);
 }
@@ -104,8 +105,6 @@ static char	**ft_read_file(t_main *main, char *file_name)
 
 static int	ft_file_struct1(t_main *main)
 {
-	int	rval;
-
 	main->map = ft_get_map(main->file);
 	if (!main->map)
 	{
@@ -114,13 +113,8 @@ static int	ft_file_struct1(t_main *main)
 		ft_free_paths(main, 1);
 		return (ft_freetab(main->file, 1));
 	}
-	rval = ft_check_map(main);
-	if (rval)
+	if (ft_check_map(main))
 	{
-		if (rval == 1)
-			ft_putstr_fd(MAP1_ERR, 2);
-		else if (rval == 2)
-			ft_putstr_fd(MAP2_ERR, 2);
 		ft_freetab(main->params, 1);
 		ft_freetab(main->map, 0);
 		ft_free_paths(main, 1);
