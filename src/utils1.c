@@ -83,8 +83,10 @@ int	ft_get_gnl_len(char *file)
 	if (fd < 0)
 		return (-1);
 	tmp = get_next_line(fd);
-	while (tmp && count++ >= 0)
+	while (tmp)
 	{
+		if (!ft_is_empty(tmp))
+			count++;
 		free(tmp);
 		tmp = get_next_line(fd);
 	}

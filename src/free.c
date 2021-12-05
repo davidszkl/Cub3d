@@ -27,3 +27,24 @@ int	ft_freetab(char	**tab, int rval)
 	free(tab);
 	return (rval);
 }
+
+int	ft_free_all(t_main *main, int rval)
+{
+	ft_freetab(main->file, rval);
+	ft_freetab(main->map, rval);
+	ft_freetab(main->params, rval);
+	free(main->north.path);
+	free(main->south.path);
+	free(main->east.path);
+	free(main->west.path);
+	return (rval);
+}
+
+int	ft_free_paths(t_main *main, int rval)
+{
+	free(main->north.path);
+	free(main->south.path);
+	free(main->east.path);
+	free(main->west.path);
+	return (rval);
+}

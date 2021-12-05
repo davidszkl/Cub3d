@@ -1,7 +1,7 @@
-NO ./rsrc/north.xpm
-SO ./rsrc/south.xpm
-EA ./rsrc/east.xpm
-WE ./rsrc/west.xpm
+NO ./rsrc/ananas.xpm
+SO ./rsrc/ananas.xpm
+EA ./rsrc/ananas.xpm
+WE ./rsrc/ananas.xpm
 F 255,255,255
 C 255,255,255
 

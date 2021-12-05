@@ -44,7 +44,7 @@ int	ft_is_empty(char *line)
 	int	n;
 
 	n = 0;
-	while (ft_isspace(line[n]))
+	while (line[n] && ft_isspace(line[n]))
 		n++;
 	if (!line[n])
 		return (1);
@@ -54,25 +54,19 @@ int	ft_is_empty(char *line)
 char	*ft_getword_simple(char *str, int n)
 {
 	char	*new;
-	int		j;
 	int		t;
 
-	j = 0;
-	while (str[n] && ft_isspace(str[n]) == 1)
-	{
-		j++;
+	while (str[n] && (str[n] == ' ' || str[n] == 9))
 		n++;
-	}
 	t = n;
-	while (str[n] && ft_isprint(str[n]) == 1)
+	while (str[n] && ft_isprint(str[n]) && str[n] != ' ')
 		n++;
-	new = malloc(sizeof(char) * (n + 1));
+	new = malloc(sizeof(char) * (n - t + 1));
 	if (!new)
 		return (NULL);
-	n = t;
-	j = 0;
-	while (str[n] && ft_isprint(str[n]) == 1)
-		new[j++] = str[n++];
-	new[j] = 0;
+	n = 0;
+	while (str[t] && ft_isprint(str[t]) && str[t] != ' ')
+		new[n++] = str[t++];
+	new[n] = 0;
 	return (new);
 }
