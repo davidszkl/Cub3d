@@ -16,8 +16,11 @@
 
 # define SIZE_X 1080
 # define SIZE_Y	1920
+
 /*errors*/
 
+# define ARG_ERR "Error\nargument error: should be 1\n"
+# define EXT_ERR "Error\nextension error: should be .cub\n"
 # define ID_ERR "Error\nid error: missing / wrong / duplicate id\n"
 # define RGB_ERR "Error\nrgb error: wrong rgb values (range 0-255)\n"
 # define MAP_ERR "Error\nmap error: missing map\n"
