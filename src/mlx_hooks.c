@@ -10,6 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
+#define ESC 53
+#define W 13
+#define A 0
+#define S 1
+#define D 2
+#define LEFT 123
+#define RIGHT 124
 
 int	ft_keyhook(int keycode, t_main *main)
 {
