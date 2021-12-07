@@ -56,6 +56,7 @@ typedef struct s_main {
 	t_img	south;
 	t_img	east;
 	t_img	west;
+	t_img 	img;
 	t_fill	floor;
 	t_fill	ceilling;
 	t_vec2i	map_dim;	
