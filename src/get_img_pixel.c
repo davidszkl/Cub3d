@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector_utils.c                                     :+:      :+:    :+:   */
+/*   get_img_pixel.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlefevre <mlefevre@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/02 13:18:54 by mlefevre          #+#    #+#             */
-/*   Updated: 2021/12/07 11:14:56 by mlefevre         ###   ########.fr       */
+/*   Created: 2021/12/07 10:38:38 by mlefevre          #+#    #+#             */
+/*   Updated: 2021/12/07 11:18:05 by mlefevre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
-#include "vector.h"
+#include "img.h"
 
-t_vec2	unit(const t_vec2 v)
+int	get_img_pixel(t_img *img, int x, int y)
 {
-	const float	x2 = v.x * v.x;
-	const float	y2 = v.y * v.y;
-	const float	c = sqrtf(x2 + y2);
+	char	*ptr;
 
-	return ((t_vec2){v.x / c, v.y / c});
+	ptr = img->addr + (y * img->ll + x * (img->bpp / 8));
+	return (*((int *)ptr));
 }
 
-t_vec2	rotate(const t_vec2 v, float alpha)
+int	get_img_pixel_uv(t_img *img, float x, float y)
 {
-	const float	s = sinf(alpha);
-	const float	c = cosf(alpha);
-
-	return ((t_vec2){v.x * c - v.y * s, v.y * c + v.x * s});
+	return (get_img_pixel(img, x * img->w, y * img->h));
 }

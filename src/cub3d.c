@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dszklarz <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mlefevre <mlefevre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 09:17:40 by dszklarz          #+#    #+#             */
-/*   Updated: 2021/11/30 09:17:41 by dszklarz         ###   ########.fr       */
+/*   Updated: 2021/12/07 11:20:50 by mlefevre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "cub3d.h"
+
 #include "utils.h"
 #include "free.h"
 
@@ -59,6 +59,7 @@ int	main(int argc, char **argv)
 	ft_init_struct(&main, argc);
 	if (ft_file_struct(&main, argv[1]))
 		return (1);
+	ft_set_player_dir(&main);
 	ft_showstate(&main);
 	if (ft_mlx_init(&main))
 		return (ft_free_all(&main, 1));

@@ -6,13 +6,13 @@
 /*   By: mlefevre <mlefevre@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 13:46:03 by mlefevre          #+#    #+#             */
-/*   Updated: 2021/12/02 15:29:37 by mlefevre         ###   ########.fr       */
+/*   Updated: 2021/12/07 11:18:34 by mlefevre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
-#include "cub3d.h"
 #include "raytrace_return.h"
+#include "cub3d.h"
 #include "vector.h"
 
 t_raytrace_return	get_x_dist(t_vec2 pos, t_vec2 dir,
@@ -23,17 +23,19 @@ t_raytrace_return	get_x_dist(t_vec2 pos, t_vec2 dir,
 	float				ypos;
 	int					i;
 
+	dir.y /= fabsf(dir.x);
 	r.d = 0;
-	i = -1;
-	while (++i <= map_dim.x)
+	i = 0;
+	while (++i < map_dim.x)
 	{
 		if (dir.x * (i - pos.x) <= 0)
 			continue ;
-		ypos = pos.y + (dir.y * fabsf(i + (i < pos.x) - pos.x));
-		if (map[(int)ypos][i] == '1')
+		ypos = pos.y + (dir.y * fabsf(i - pos.x));
+		ypos = (float [2]){ypos, map_dim.y - 1.f}[(int)ypos >= map_dim.y];
+		ypos = (float [2]){ypos, 0.f}[(int)ypos < 0];
+		if (map[(int)ypos][i - (i < pos.x)] == '1')
 		{
-			tmp.x = fabsf(i + (i < pos.x) - pos.x);
-			tmp.y = fabsf(ypos - pos.y);
+			tmp = (t_vec2){fabsf(i - pos.x), fabsf(ypos - pos.y)};
 			if (r.d == 0 || r.d > tmp.x * tmp.x + tmp.y * tmp.y)
 				r.d = tmp.x * tmp.x + tmp.y * tmp.y;
 		}
@@ -51,17 +53,19 @@ t_raytrace_return	get_y_dist(t_vec2 pos, t_vec2 dir,
 	float				xpos;
 	int					i;
 
+	dir.x /= fabsf(dir.y);
 	r.d = 0;
-	i = -1;
-	while (++i <= map_dim.y)
+	i = 0;
+	while (++i < map_dim.y)
 	{
 		if (dir.y * (i - pos.y) <= 0)
 			continue ;
-		xpos = pos.x + (dir.x * fabsf(i + (i < pos.y) - pos.y));
-		if (map[i][(int)xpos] == '1')
+		xpos = pos.x + (dir.x * fabsf(i - pos.y));
+		xpos = (float [2]){xpos, map_dim.x - 1.f}[(int)xpos >= map_dim.x];
+		xpos = (float [2]){xpos, 0.f}[(int)xpos < 0];
+		if (map[i - (i < pos.y)][(int)xpos] == '1')
 		{
-			tmp.y = fabsf(i + (i < pos.y) - pos.y);
-			tmp.x = fabsf(xpos - pos.x);
+			tmp = (t_vec2){fabsf(i - pos.y), fabsf(xpos - pos.x)};
 			if (r.d == 0 || r.d > tmp.x * tmp.x + tmp.y * tmp.y)
 				r.d = tmp.x * tmp.x + tmp.y * tmp.y;
 		}
