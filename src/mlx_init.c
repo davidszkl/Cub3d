@@ -76,6 +76,16 @@ static int	ft_mlx_fillstruct(t_main *main)
 	main->win = mlx_new_window(main->mlx, SIZE_X, SIZE_Y, "Cub3d");
 	if (!main->mlx)
 		return (1);
+	main->img.img = mlx_new_image(main->mlx, SIZE_X, SIZE_Y);
+	if (!main->img.img)
+		return (mlx_destroy_window(main->mlx, main->win));
+	main->img.addr = mlx_get_data_addr(main->img.img, &main->img.bpp,
+			&main->img.ll, &main->img.end);
+	if (!main->img.addr)
+	{
+		mlx_destroy_image(main->mlx, main->img.img);
+		return (mlx_destroy_window(main->mlx, main->win));
+	}
 	mlx_key_hook(main->win, ft_keyhook, main);
 	mlx_hook(main->win, 17, 1L << 2, ft_exithook, main);
 	mlx_loop_hook(main->mlx, ft_loop_func, main);
