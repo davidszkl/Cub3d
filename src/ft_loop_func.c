@@ -6,10 +6,11 @@
 /*   By: mlefevre <mlefevre@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 11:52:19 by mlefevre          #+#    #+#             */
-/*   Updated: 2021/12/07 13:18:17 by mlefevre         ###   ########.fr       */
+/*   Updated: 2021/12/07 14:12:50 by mlefevre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include <mlx.h>
 #include "cub3d.h"
 #include "raytrace_return.h"
@@ -26,9 +27,10 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-static void	draw_wall(t_main *main, int x, t_raytrace_return r)
+static void	draw_wall(t_vec2 dir, t_main *main, int x, t_raytrace_return r)
 {
-	const int	wall_len = SIZE_Y / r.d;
+	const float	a = atan2f(dir.y, dir.x) - atan2f(main->player_dir.y, main->player_dir.x);
+	const int	wall_len = SIZE_Y / (cosf(a) * r.d);
 	int y2;
 	int	y;
 
@@ -58,8 +60,8 @@ int	ft_loop_func(t_main *main)
 		dir.x = main->player_dir.x / 2. + p.x * (x - SIZE_X / 2.) / (float)SIZE_X;
 		dir.y = main->player_dir.y / 2. + p.y * (x - SIZE_X / 2.) / (float)SIZE_X;
 		dir = unit(dir);
-		r = raytrace(main->player_pos, main->player_dir, (const char **)main->map, main->map_dim);
-		draw_wall(main, x, r);
+		r = raytrace(main->player_pos, dir, (const char **)main->map, main->map_dim);
+		draw_wall(dir, main, x, r);
 	}
 	mlx_put_image_to_window(main->mlx, main->win, main->img.img, 0, 0);
 	return (0);
