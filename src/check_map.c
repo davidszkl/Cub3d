@@ -17,7 +17,7 @@
 //chars other than 1, 0, space, N, W, E, S
 //multiple N, W, E, S
 
-static int	ft_map_check(char **tab)
+static int	ft_map_check(t_main *main, char **tab)
 {
 	size_t	count;
 	size_t	j;
@@ -41,6 +41,7 @@ static int	ft_map_check(char **tab)
 			j++;
 		}
 	}
+	main->map_dim.y = n;
 	return (0);
 }
 
@@ -104,7 +105,7 @@ static int	ft_check_close(char **tab)
 	return (ft_freetab(cpy, 0));
 }
 
-static char	**ft_fill_map(char **map)
+static char	**ft_fill_map(t_main *main, char **map)
 {
 	size_t	max_len;
 	char	**new;
@@ -115,6 +116,7 @@ static char	**ft_fill_map(char **map)
 	while (map[++n])
 		if (ft_strlen(map[n]) > max_len)
 			max_len = ft_strlen(map[n]);
+	main->map_dim.x = max_len - 1;
 	new = (char **)malloc(sizeof(char *) * (n + 1));
 	if (!new)
 		return (NULL);
@@ -136,12 +138,12 @@ int	ft_check_map(t_main *main)
 {
 	char	**new;
 
-	new = ft_fill_map(main->map);
+	new = ft_fill_map(main, main->map);
 	if (!new)
 		return (ft_freetab(main->map, -1));
 	ft_freetab(main->map, 0);
 	main->map = new;
-	if (ft_map_check(main->map))
+	if (ft_map_check(main, main->map))
 		return (1);
 	if (ft_check_close(main->map))
 		return (ft_putstr_fd(MAP3_ERR, 2));
