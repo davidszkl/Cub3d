@@ -6,7 +6,7 @@
 /*   By: dszklarz <dszklarz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 11:07:54 by dszklarz          #+#    #+#             */
-/*   Updated: 2021/12/07 12:23:22 by mlefevre         ###   ########.fr       */
+/*   Updated: 2021/12/07 13:17:35 by mlefevre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -14,8 +14,8 @@
 
 /*settings*/
 
-# define SIZE_X 1080
-# define SIZE_Y	1920
+# define SIZE_X	1920
+# define SIZE_Y 1080
 
 /*errors*/
 

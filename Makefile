@@ -4,6 +4,7 @@ SRCDIR	= src
 
 SRCS	= $(shell find $(SRCDIR)/*.c)\
 			src/gnl/get_next_line.c src/gnl/get_next_line_utils.c
+HEADERS	= $(shell find $(INCDIR)/*.h);
 
 OBJDIR	= obj
 
@@ -21,8 +22,8 @@ CFLAGS	= -Wall -Wextra -Werror -g
 
 API		= -lmlx -framework OpenGL -framework AppKit
 
-$(OBJDIR)/%.o:	$(SRCDIR)/%.c
-				$(CC) $(CFLAGS) -I$(INCDIR) -I$(MLXDIR) -c $^ -o $@
+$(OBJDIR)/%.o:	$(SRCDIR)/%.c $(HEADERS)
+				$(CC) $(CFLAGS) -I$(INCDIR) -I$(MLXDIR) -c $< -o $@
                 
 all:		$(NAME)
 

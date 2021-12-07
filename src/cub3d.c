@@ -6,7 +6,7 @@
 /*   By: mlefevre <mlefevre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 09:17:40 by dszklarz          #+#    #+#             */
-/*   Updated: 2021/12/07 11:41:18 by mlefevre         ###   ########.fr       */
+/*   Updated: 2021/12/07 13:02:53 by mlefevre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	main(int argc, char **argv)
 	ft_init_struct(&main, argc);
 	if (ft_file_struct(&main, argv[1]))
 		return (1);
-	ft_set_player_dir(&main);
+	ft_init_player(&main);
 	ft_showstate(&main);
 	if (ft_mlx_init(&main))
 		return (ft_free_all(&main, 1));
