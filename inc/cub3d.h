@@ -41,6 +41,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include "vector.h"
 # include "img.h"
 
 /*structures*/
@@ -57,6 +58,7 @@ typedef struct s_main {
 	t_img	west;
 	t_fill	floor;
 	t_fill	ceilling;
+	t_vec2i	map_dim;	
 	void	*mlx;
 	void	*win;
 	char	**file;		//malloc tab
