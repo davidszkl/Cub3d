@@ -6,7 +6,7 @@
 /*   By: dszklarz <dszklarz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 11:07:54 by dszklarz          #+#    #+#             */
-/*   Updated: 2021/12/07 10:52:11 by mlefevre         ###   ########.fr       */
+/*   Updated: 2021/12/07 12:23:22 by mlefevre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -35,6 +35,10 @@
 # define EAST 2
 # define WEST 3
 
+/*constants*/
+
+# define PI 3.141592654
+
 /*includes*/
 
 # include <stdio.h>
@@ -58,7 +62,9 @@ typedef struct s_main {
 	t_img	west;
 	t_fill	floor;
 	t_fill	ceilling;
-	t_vec2i	map_dim;	
+	t_vec2i	map_dim;
+	t_vec2	player_dir;
+	t_vec2	player_pos;
 	void	*mlx;
 	void	*win;
 	char	**file;		//malloc tab
@@ -80,12 +86,17 @@ int		ft_check_map(t_main *main);
 int		ft_mlx_init(t_main *main);
 int		ft_keyhook(int keycode, t_main *main);
 int		ft_exithook(t_main *main);
+int		ft_loop_func(t_main *main);
 
 /*free*/
 
 void	ft_exit(t_main *main);
 int		ft_free_paths(t_main *main, int rval);
 int		ft_free_all(t_main *main, int rval);
+
+/*player dir*/
+
+void	ft_init_player(t_main *main);
 
 /*ERASE*/
 

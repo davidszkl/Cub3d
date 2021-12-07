@@ -6,7 +6,7 @@
 /*   By: dszklarz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 14:19:31 by dszklarz          #+#    #+#             */
-/*   Updated: 2021/12/04 14:19:33 by dszklarz         ###   ########.fr       */
+/*   Updated: 2021/12/07 12:06:13 by mlefevre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -37,5 +37,7 @@ void	ft_showstate(t_main *main)
 		main->floor.rgb1[2]);
 	printf("ceilling = %d,%d,%d\n", main->ceilling.rgb1[0],
 		main->ceilling.rgb1[1], main->ceilling.rgb1[2]);
+	printf("player_dir = (%f, %f)\n", main->player_dir.x, main->player_dir.y);
+	printf("player_pos = (%f, %f)\n", main->player_pos.x, main->player_pos.y);
 	ft_showtab(main->map);
 }

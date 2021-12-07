@@ -6,7 +6,7 @@
 /*   By: dszklarz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 14:36:24 by dszklarz          #+#    #+#             */
-/*   Updated: 2021/12/05 14:36:25 by dszklarz         ###   ########.fr       */
+/*   Updated: 2021/12/07 11:52:00 by mlefevre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <mlx.h>
@@ -78,6 +78,7 @@ static int	ft_mlx_fillstruct(t_main *main)
 		return (1);
 	mlx_key_hook(main->win, ft_keyhook, main);
 	mlx_hook(main->win, 17, 1L << 2, ft_exithook, main);
+	mlx_loop_hook(main->mlx, ft_loop_func, main);
 	return (0);
 }
 
