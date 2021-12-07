@@ -6,7 +6,7 @@
 /*   By: dszklarz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 15:40:16 by dszklarz          #+#    #+#             */
-/*   Updated: 2021/12/07 14:27:17 by mlefevre         ###   ########.fr       */
+/*   Updated: 2021/12/07 16:07:46 by mlefevre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -21,21 +21,37 @@
 
 int	ft_keyhook(int keycode, t_main *main)
 {
-	t_vec2	player_dir01 = (t_vec2) {main->player_dir.x * 0.1, main->player_dir.y * 0.1};
 	if (keycode == 53)
 		ft_exit(main);
 	if (keycode == LEFT)
-		main->player_dir = rotate(main->player_dir, -PI / 100);
+		main->left_held = 1;
 	if (keycode == RIGHT)
-		main->player_dir = rotate(main->player_dir, PI / 100);
+		main->right_held = 1;
 	if (keycode == W)
-		main->player_pos = add(main->player_pos, player_dir01);
+		main->w_held = 1;
 	if (keycode == S)
-		main->player_pos = sub(main->player_pos, player_dir01);
+		main->s_held = 1;
 	if (keycode == A)
-		main->player_pos = add(main->player_pos, rotate(player_dir01, -PI / 2.));
+		main->a_held = 1;
 	if (keycode == D)
-		main->player_pos = sub(main->player_pos, rotate(player_dir01, -PI / 2.));
+		main->d_held = 1;
+	return (0);
+}
+
+int	ft_release_hook(int keycode, t_main *main)
+{
+	if (keycode == LEFT)
+		main->left_held = 0;
+	if (keycode == RIGHT)
+		main->right_held = 0;
+	if (keycode == W)
+		main->w_held = 0;
+	if (keycode == S)
+		main->s_held = 0;
+	if (keycode == A)
+		main->a_held = 0;
+	if (keycode == D)
+		main->d_held = 0;
 	return (0);
 }
 

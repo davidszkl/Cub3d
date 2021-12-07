@@ -6,7 +6,7 @@
 /*   By: dszklarz <dszklarz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 11:07:54 by dszklarz          #+#    #+#             */
-/*   Updated: 2021/12/07 13:17:35 by mlefevre         ###   ########.fr       */
+/*   Updated: 2021/12/07 15:45:31 by mlefevre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -73,6 +73,12 @@ typedef struct s_main {
 	char	**map;
 	char	*temp;
 	int		a;
+	int		left_held;
+	int		right_held;
+	int		w_held;
+	int		a_held;
+	int		s_held;
+	int		d_held;
 }	t_main;
 
 /*parser*/
@@ -86,6 +92,7 @@ int		ft_check_map(t_main *main);
 
 int		ft_mlx_init(t_main *main);
 int		ft_keyhook(int keycode, t_main *main);
+int		ft_release_hook(int keycode, t_main *main);
 int		ft_exithook(t_main *main);
 int		ft_loop_func(t_main *main);
 

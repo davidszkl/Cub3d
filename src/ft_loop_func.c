@@ -6,7 +6,7 @@
 /*   By: mlefevre <mlefevre@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 11:52:19 by mlefevre          #+#    #+#             */
-/*   Updated: 2021/12/07 14:12:50 by mlefevre         ###   ########.fr       */
+/*   Updated: 2021/12/07 17:02:55 by mlefevre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,20 @@
 
 t_raytrace_return	raytrace(t_vec2 pos,
 	t_vec2 dir, const char **map, t_vec2i map_dim);
+void				apply_movement(t_main *main);
 
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
+static void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
 	dst = img->addr
 		+ (y * img->ll + x * (img->bpp / 8));
 	*(unsigned int*)dst = color;
+}
+
+static int	arr_to_int(int *arr)
+{
+	return ((arr[0] << 16) + (arr[1] << 8) + (arr[2] << 0));
 }
 
 static void	draw_wall(t_vec2 dir, t_main *main, int x, t_raytrace_return r)
@@ -36,7 +42,7 @@ static void	draw_wall(t_vec2 dir, t_main *main, int x, t_raytrace_return r)
 
 	y = -1;
 	while (++y < (SIZE_Y - wall_len) / 2)
-		my_mlx_pixel_put(&main->img, x, y, 0xff0000);
+		my_mlx_pixel_put(&main->img, x, y, arr_to_int(main->ceilling.rgb1));
 	y2 = y;
 	y--;
 	while (++y - y2 < wall_len)
@@ -44,7 +50,7 @@ static void	draw_wall(t_vec2 dir, t_main *main, int x, t_raytrace_return r)
 	y2 = y;
 	y--;
 	while (++y - y2 < (SIZE_Y - wall_len) / 2)
-		my_mlx_pixel_put(&main->img, x, y, 0x0000ff);
+		my_mlx_pixel_put(&main->img, x, y, arr_to_int(main->floor.rgb1));
 }
 
 int	ft_loop_func(t_main *main)
@@ -54,6 +60,7 @@ int	ft_loop_func(t_main *main)
 	t_vec2				dir;
 	int					x;
 
+	apply_movement(main);
 	x = -1;
 	while (++x < SIZE_X)
 	{
