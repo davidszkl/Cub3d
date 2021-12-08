@@ -6,7 +6,7 @@
 /*   By: mlefevre <mlefevre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 11:13:35 by dszklarz          #+#    #+#             */
-/*   Updated: 2021/12/07 11:21:12 by mlefevre         ###   ########.fr       */
+/*   Updated: 2021/12/08 14:01:06 by mlefevre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct s_img {
 	int		end;
 	int		w;
 	int		h;
-	char	*path;		//malloc x4
+	char	*path;
 	int		line;
 }	t_img;
 

@@ -6,7 +6,7 @@
 /*   By: dszklarz <dszklarz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 11:07:54 by dszklarz          #+#    #+#             */
-/*   Updated: 2021/12/07 15:45:31 by mlefevre         ###   ########.fr       */
+/*   Updated: 2021/12/08 14:56:19 by mlefevre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -14,8 +14,8 @@
 
 /*settings*/
 
-# define SIZE_X	1920
-# define SIZE_Y 1080
+# define SIZE_X	700
+# define SIZE_Y 700
 
 /*errors*/
 
@@ -60,7 +60,7 @@ typedef struct s_main {
 	t_img	south;
 	t_img	east;
 	t_img	west;
-	t_img 	img;
+	t_img	img;
 	t_fill	floor;
 	t_fill	ceilling;
 	t_vec2i	map_dim;
@@ -68,7 +68,7 @@ typedef struct s_main {
 	t_vec2	player_pos;
 	void	*mlx;
 	void	*win;
-	char	**file;		//malloc tab
+	char	**file;
 	char	**params;
 	char	**map;
 	char	*temp;
@@ -105,10 +105,5 @@ int		ft_free_all(t_main *main, int rval);
 /*player dir*/
 
 void	ft_init_player(t_main *main);
-
-/*ERASE*/
-
-void	ft_showstate(t_main *main);
-void	ft_showtab(char **tab);
 
 #endif

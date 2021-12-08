@@ -1,10 +1,46 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mlefevre <mlefevre@student.s19.be>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/12/08 14:09:10 by mlefevre          #+#    #+#              #
+#    Updated: 2021/12/08 14:24:59 by mlefevre         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME	= cub3d
 
 SRCDIR	= src
 
-SRCS	= $(shell find $(SRCDIR)/*.c)\
-			src/gnl/get_next_line.c src/gnl/get_next_line_utils.c
-HEADERS	= $(shell find $(INCDIR)/*.h);
+SRCS	= src/apply_movement.c\
+src/check_map.c\
+src/check_params.c\
+src/cub3d.c\
+src/free.c\
+src/ft_init_player.c\
+src/ft_loop_func.c\
+src/get_img_pixel.c\
+src/get_texture_color.c\
+src/mlx_hooks.c\
+src/mlx_init.c\
+src/raytrace.c\
+src/read_file.c\
+src/utils1.c\
+src/utils2.c\
+src/utils3.c\
+src/utils4.c\
+src/vector_utils.c\
+src/gnl/get_next_line.c src/gnl/get_next_line_utils.c
+
+HEADERS	= inc/cub3d.h\
+inc/free.h\
+inc/get_next_line.h\
+inc/img.h\
+inc/raytrace_return.h\
+inc/utils.h\
+inc/vector.h
 
 OBJDIR	= obj
 
@@ -18,7 +54,7 @@ CC		= gcc
 
 RM		= rm -f
 
-CFLAGS	= -Wall -Wextra -Werror -g
+CFLAGS	= -Wall -Wextra -Werror
 
 API		= -lmlx -framework OpenGL -framework AppKit
 
