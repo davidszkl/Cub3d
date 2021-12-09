@@ -6,7 +6,7 @@
 /*   By: mlefevre <mlefevre@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 11:52:19 by mlefevre          #+#    #+#             */
-/*   Updated: 2021/12/09 11:08:11 by mlefevre         ###   ########.fr       */
+/*   Updated: 2021/12/09 12:20:07 by mlefevre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 
 static int	arr_to_int(int *arr)
 {
-	return ((arr[0] << 16) + (arr[1] << 8) + (arr[2] << 0));
+	return ((arr[0] << 16) + (arr[1] << 8) + (arr[2]));
 }
 
 static void	draw_wall(t_vec2 dir,
