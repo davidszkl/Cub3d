@@ -1,7 +1,7 @@
 NO ./rsrc/ananas.xpm
-SO ./rsrc/ananas.xpm
-EA ./rsrc/ananas.xpm
-WE ./rsrc/ananas.xpm
+SO ./rsrc/ricardo.xpm
+EA ./rsrc/sonic.xpm
+WE ./rsrc/coconut.xpm
 F 200,150,50
 C 100,100,100
 
