@@ -43,19 +43,14 @@ static int	ft_check_rgb(t_main *main, char *line, int index)
 	main->temp = ft_get_rgb(line, n);
 	if (!main->temp)
 		return (1);
-	n = 0;
 	if (main->floor.line == index)
 	{
-		while (n >= 0 && main->temp[n] && count < 3)
-			n = ft_atoi_mod(&main->temp[n], &main->floor.rgb1[count++]);
-		if (n < 0)
+		if (ft_atoi_loop(main, 1))
 			return (ft_myfree(main->temp, 1));
 	}
 	else if (main->ceilling.line == index)
 	{
-		while (n >= 0 && main->temp[n] && count < 3)
-			n = ft_atoi_mod(&main->temp[n], &main->ceilling.rgb1[count++]);
-		if (n < 0)
+		if (ft_atoi_loop(main, 2))
 			return (ft_myfree(main->temp, 1));
 	}
 	return (ft_myfree(main->temp, 0));

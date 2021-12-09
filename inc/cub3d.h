@@ -86,6 +86,7 @@ typedef struct s_main {
 char	**ft_read_nospace_file(char *tmp, char **new, int count, int fd);
 int		ft_file_struct(t_main *main, char *file);
 int		ft_check_params(t_main *main, char **tab);
+int		ft_atoi_loop(t_main *main, int nbr);
 int		ft_check_map(t_main *main);
 
 /*mlx*/

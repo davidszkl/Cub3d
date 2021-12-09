@@ -2,8 +2,8 @@ NO ./rsrc/ananas.xpm
 SO ./rsrc/ricardo.xpm
 EA ./rsrc/sonic.xpm
 WE ./rsrc/coconut.xpm
-F 0,0,0
-C 0,0,0
+F 0,0,255
+C 0,255,0
 
 
 

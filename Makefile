@@ -17,6 +17,7 @@ SRCDIR	= src
 SRCS	= src/apply_movement.c\
 src/check_map.c\
 src/check_params.c\
+src/check_params1.c\
 src/cub3d.c\
 src/free.c\
 src/ft_init_player.c\
