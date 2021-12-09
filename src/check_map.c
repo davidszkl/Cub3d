@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_check.c                                        :+:      :+:    :+:   */
+/*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dszklarz <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mlefevre <mlefevre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 09:25:41 by dszklarz          #+#    #+#             */
-/*   Updated: 2021/11/30 09:25:43 by dszklarz         ###   ########.fr       */
+/*   Updated: 2021/12/09 11:29:25 by mlefevre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "utils.h"
 #include "free.h"
 #include "cub3d.h"
-
+#include "utils.h"
 //newline in the middle of map
 //chars other than 1, 0, space, N, W, E, S
 //multiple N, W, E, S
@@ -42,7 +41,7 @@ static int	ft_map_check(t_main *main, char **tab)
 		}
 	}
 	main->map_dim.y = n;
-	return (0);
+	return ((count == 0) && ft_putstr_fd(MAP1_ERR, 2));
 }
 
 // if not on space continue

@@ -6,7 +6,7 @@
 /*   By: mlefevre <mlefevre@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 13:46:03 by mlefevre          #+#    #+#             */
-/*   Updated: 2021/12/07 11:18:34 by mlefevre         ###   ########.fr       */
+/*   Updated: 2021/12/09 10:52:24 by mlefevre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_raytrace_return	get_x_dist(t_vec2 pos, t_vec2 dir,
 	int					i;
 
 	dir.y /= fabsf(dir.x);
-	r.d = 0;
+	r.d = -1;
 	i = 0;
 	while (++i < map_dim.x)
 	{
@@ -36,7 +36,7 @@ t_raytrace_return	get_x_dist(t_vec2 pos, t_vec2 dir,
 		if (map[(int)ypos][i - (i < pos.x)] == '1')
 		{
 			tmp = (t_vec2){fabsf(i - pos.x), fabsf(ypos - pos.y)};
-			if (r.d == 0 || r.d > tmp.x * tmp.x + tmp.y * tmp.y)
+			if (r.d < 0 || r.d > tmp.x * tmp.x + tmp.y * tmp.y)
 				r.d = tmp.x * tmp.x + tmp.y * tmp.y;
 		}
 	}
@@ -54,7 +54,7 @@ t_raytrace_return	get_y_dist(t_vec2 pos, t_vec2 dir,
 	int					i;
 
 	dir.x /= fabsf(dir.y);
-	r.d = 0;
+	r.d = -1;
 	i = 0;
 	while (++i < map_dim.y)
 	{
@@ -66,7 +66,7 @@ t_raytrace_return	get_y_dist(t_vec2 pos, t_vec2 dir,
 		if (map[i - (i < pos.y)][(int)xpos] == '1')
 		{
 			tmp = (t_vec2){fabsf(i - pos.y), fabsf(xpos - pos.x)};
-			if (r.d == 0 || r.d > tmp.x * tmp.x + tmp.y * tmp.y)
+			if (r.d < 0 || r.d > tmp.x * tmp.x + tmp.y * tmp.y)
 				r.d = tmp.x * tmp.x + tmp.y * tmp.y;
 		}
 	}
@@ -87,13 +87,13 @@ t_raytrace_return	raytrace(t_vec2 pos,
 	if (dir.x != 0)
 	{
 		r_tmp = get_x_dist(pos, dir, map, map_dim);
-		if (r.d == 0 || r.d > r_tmp.d)
+		if ((r.d == 0 || r.d > r_tmp.d) && r_tmp.d >= 0)
 			r = r_tmp;
 	}
 	if (dir.y != 0)
 	{
 		r_tmp = get_y_dist(pos, dir, map, map_dim);
-		if (r.d == 0 || r.d > r_tmp.d)
+		if ((r.d == 0 || r.d > r_tmp.d) && r_tmp.d >= 0)
 			r = r_tmp;
 	}
 	return (r);

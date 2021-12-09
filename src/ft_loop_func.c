@@ -6,7 +6,7 @@
 /*   By: mlefevre <mlefevre@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 11:52:19 by mlefevre          #+#    #+#             */
-/*   Updated: 2021/12/08 14:55:58 by mlefevre         ###   ########.fr       */
+/*   Updated: 2021/12/09 11:08:11 by mlefevre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ static int	arr_to_int(int *arr)
 	return ((arr[0] << 16) + (arr[1] << 8) + (arr[2] << 0));
 }
 
-static void	draw_wall(t_vec2 dir, t_main *main, const int x, t_raytrace_return r)
+static void	draw_wall(t_vec2 dir,
+		t_main *main, const int x, t_raytrace_return r)
 {
 	const float	a = atan2f(dir.y, dir.x)
 		- atan2f(main->player_dir.y, main->player_dir.x);
@@ -45,7 +46,6 @@ static void	draw_wall(t_vec2 dir, t_main *main, const int x, t_raytrace_return r
 	int			y2;
 	int			y;
 
-	printf("%i\n", x);
 	wall_len = SIZE_Y / (cosf(a) * r.d);
 	wall_len2 = wall_len;
 	if (wall_len > SIZE_Y)
@@ -56,27 +56,13 @@ static void	draw_wall(t_vec2 dir, t_main *main, const int x, t_raytrace_return r
 	y2 = y;
 	y--;
 	while (++y - y2 < wall_len2)
-		my_mlx_pixel_put(&main->img, x, y, 0xffffff);//get_texture_color((float)(y
-//					- y2 + (wall_len - wall_len2) / 2)
-//				/ (float)wall_len, main, r, dir));
+		my_mlx_pixel_put(&main->img, x, y, get_texture_color((float)(y
+					- y2 + (wall_len - wall_len2) / 2)
+				/ (float)wall_len, main, r, dir));
 	y2 = y;
 	y--;
 	while (++y - y2 < (SIZE_Y - wall_len2) / 2)
 		my_mlx_pixel_put(&main->img, x, y, arr_to_int(main->floor.rgb1));
-}
-
-void clear_win(t_main *main)
-{
-	int y;
-	int	x;
-
-	y = -1;
-	while (++y < SIZE_Y)
-	{
-		x = -1;
-		while (++x < SIZE_X)
-			my_mlx_pixel_put(&main->img, x, y, 0);
-	}
 }
 
 int	ft_loop_func(t_main *main)
@@ -86,7 +72,6 @@ int	ft_loop_func(t_main *main)
 	t_vec2				dir;
 	int					x;
 
-	clear_win(main);
 	apply_movement(main);
 	x = -1;
 	while (++x < SIZE_X)
