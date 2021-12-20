@@ -6,7 +6,7 @@
 /*   By: mlefevre <mlefevre@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 11:52:19 by mlefevre          #+#    #+#             */
-/*   Updated: 2021/12/09 12:20:07 by mlefevre         ###   ########.fr       */
+/*   Updated: 2021/12/20 13:26:17 by mlefevre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,13 @@ static void	draw_wall(t_vec2 dir,
 
 int	ft_loop_func(t_main *main)
 {
+	t_vec2				p;
 	t_raytrace_return	r;
-	const t_vec2		p = rotate(main->player_dir, PI / 2);
 	t_vec2				dir;
 	int					x;
 
 	apply_movement(main);
+	p = rotate(main->player_dir, PI / 2);
 	x = -1;
 	while (++x < SIZE_X)
 	{

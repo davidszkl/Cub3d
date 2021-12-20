@@ -6,7 +6,7 @@
 /*   By: mlefevre <mlefevre@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:11:51 by mlefevre          #+#    #+#             */
-/*   Updated: 2021/12/09 10:56:41 by mlefevre         ###   ########.fr       */
+/*   Updated: 2021/12/20 13:20:32 by mlefevre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	apply_movement(t_main *main)
 
 	tmp = main->player_pos;
 	if (main->left_held)
-		main->player_dir = rotate(main->player_dir, -PI / 70);
+		main->player_dir = rotate(main->player_dir, -PI / 70.);
 	if (main->right_held)
-		main->player_dir = rotate(main->player_dir, PI / 70);
+		main->player_dir = rotate(main->player_dir, PI / 70.);
 	if (main->w_held)
 		tmp = add(tmp, player_dir01);
 	if (main->s_held)
