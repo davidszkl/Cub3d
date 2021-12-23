@@ -22,6 +22,7 @@
 /*utils*/
 
 size_t	ft_strlen(char *str);
+void	my_perror(char *tmp);
 char	**ft_tabcpy(char **tab);
 char	*ft_getword_simple(char *str, int n);
 char	*ft_strdup_fill(char *str, size_t l, char fill);

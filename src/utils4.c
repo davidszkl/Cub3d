@@ -43,3 +43,11 @@ int	ft_atoi_mod(char *str, int *modify)
 	*modify = n;
 	return (j);
 }
+
+void	my_perror(char *tmp)
+{
+	if (!tmp[0])
+		perror("<no file>");
+	else
+		perror(tmp);
+}

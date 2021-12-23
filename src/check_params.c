@@ -69,7 +69,7 @@ static int	ft_check_path(t_main *main, char *line, int index)
 	fd = open(tmp, O_RDONLY);
 	if (fd < 0)
 	{
-		perror(tmp);
+		my_perror(tmp);
 		return (ft_myfree(tmp, 1));
 	}
 	close(fd);
