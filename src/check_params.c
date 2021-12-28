@@ -139,3 +139,4 @@ int	ft_check_params(t_main *main, char **tab)
 	}
 	return (0);
 }
+

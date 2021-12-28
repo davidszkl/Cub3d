@@ -25,12 +25,16 @@ static void	ft_init_struct(t_main *main, int argc)
 	(void)argc;
 	main->north.path = 0;
 	main->north.img = 0;
+	main->north.line = -1;
 	main->south.path = 0;
 	main->south.img = 0;
+	main->south.line = -1;
 	main->east.path = 0;
 	main->east.img = 0;
+	main->east.line = -1;
 	main->west.path = 0;
 	main->west.img = 0;
+	main->west.line = -1;
 }
 
 static int	ft_simple_checks(int argc, char *argv)
